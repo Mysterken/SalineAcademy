@@ -1,7 +1,7 @@
 Quickstart
  
 ```shell
-git clone https://github.com/Mysterken/mk-od.git
+git clone git@github.com:Mysterken/SalineAcademy.git
 git submodule update --init --recursive
 make start
 ```
