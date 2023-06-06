@@ -4,18 +4,12 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
 
-# Builder images
-FROM composer/composer:2-bin AS composer
-
-FROM mlocati/php-extension-installer:latest AS php_extension_installer
-
 # Build Caddy with the Mercure and Vulcain modules
-FROM caddy:2.6-builder-alpine AS app_caddy_builder
+FROM caddy:2.7-builder-alpine AS app_caddy_builder
 
-RUN xcaddy build \
+RUN xcaddy build v2.6.4 \
 	--with github.com/dunglas/mercure \
 	--with github.com/dunglas/mercure/caddy \
-	--with github.com/dunglas/vulcain \
 	--with github.com/dunglas/vulcain/caddy
 
 
@@ -35,7 +29,7 @@ ENV APP_ENV=prod
 WORKDIR /srv/app
 
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer
-COPY --from=php_extension_installer --link /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:latest --link /usr/bin/install-php-extensions /usr/local/bin/
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -82,10 +76,10 @@ CMD ["php-fpm"]
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
-COPY --from=composer --link /composer /usr/bin/composer
+COPY --from=composer/composer:2-bin --link /composer /usr/bin/composer
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY --link ./masterclass-backend/composer.* ./masterclass-backend/symfony.* ./
+COPY --link ./SalineAcademyBackend/composer.* ./SalineAcademyBackend/symfony.* ./
 RUN set -eux; \
     if [ -f composer.json ]; then \
 		composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
@@ -93,7 +87,7 @@ RUN set -eux; \
     fi
 
 # copy sources
-COPY --link  ./masterclass-backend ./
+COPY --link  ./SalineAcademyBackend ./
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
@@ -133,17 +127,17 @@ ENV NODE_PORT ${NODE_PORT}
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY ./masterclass-frontend/package.json ./
-COPY ./masterclass-frontend/yarn.lock ./
+COPY ./SalineAcademyFrontend/package.json ./
+COPY ./SalineAcademyFrontend/yarn.lock ./
 
 RUN set -eux; \
 	yarn install \
     && yarn cache clean --all
 
-COPY ./masterclass-frontend/vite.config.js ./
-COPY ./masterclass-frontend/index.html ./
-COPY ./masterclass-frontend/public ./public
-COPY ./masterclass-frontend/src ./src
+COPY ./SalineAcademyFrontend/vite.config.js ./
+COPY ./SalineAcademyFrontend/index.html ./
+COPY ./SalineAcademyFrontend/public ./public
+COPY ./SalineAcademyFrontend/src ./src
 
 COPY --link docker/node/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
@@ -167,7 +161,7 @@ CMD ["yarn", "build"]
 
 
 # Caddy image
-FROM caddy:2.6-alpine AS app_caddy
+FROM caddy:2-alpine AS app_caddy
 
 WORKDIR /srv/app
 

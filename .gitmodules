@@ -1,0 +1,6 @@
+[submodule "SalineAcademyFrontend"]
+	path = SalineAcademyFrontend
+	url = git@github.com:Mysterken/SalineAcademyFrontend.git
+[submodule "SalineAcademyBackend"]
+	path = SalineAcademyBackend
+	url = git@github.com:Mysterken/SalineAcademyBackend.git

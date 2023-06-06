@@ -7,7 +7,7 @@ services:
     build:
       target: app_php_dev
     volumes:
-      - ./masterclass-backend:/srv/app
+      - ./SalineAcademyBackend:/srv/app
       - ./docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory
       #  from the bind-mount for better performance by enabling the next line:
@@ -23,10 +23,10 @@ services:
     build:
       target: app_node_dev
     volumes:
-      - ./masterclass-frontend:/usr/src/app
+      - ./SalineAcademyFrontend:/usr/src/app
 
   caddy:
     command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile", "--watch"]
     volumes:
-      - ./masterclass-backend/public:/srv/app/public:ro
+      - ./SalineAcademyBackend/public:/srv/app/public:ro
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
