@@ -28,6 +28,8 @@ ENV APP_ENV=prod
 
 WORKDIR /srv/app
 
+RUN docker-php-ext-install pdo_mysql
+
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer
 COPY --from=mlocati/php-extension-installer:latest --link /usr/bin/install-php-extensions /usr/local/bin/
 

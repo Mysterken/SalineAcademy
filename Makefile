@@ -5,6 +5,7 @@ DOCKER_COMP = docker compose
 PHP_CONT   = $(DOCKER_COMP) exec php
 NODE_CONT  = $(DOCKER_COMP) exec node
 CADDY_CONT = $(DOCKER_COMP) exec caddy
+MARIADB_CONT = $(DOCKER_COMP) exec mariadb
 
 # PHP Executables
 PHP      = $(PHP_CONT) php
@@ -49,6 +50,9 @@ nsh: ## Connect to the node container
 
 csh: ## Connect to the caddy container
 	@$(CADDY_CONT) sh
+
+msh: ## Connect to the mariadb container
+	@$(MARIADB_CONT) sh
 
 ## —— Composer 🧙 ——————————————————————————————————————————————————————————————
 composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
