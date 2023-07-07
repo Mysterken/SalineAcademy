@@ -28,3 +28,4 @@ make help
 Fix for common issues:
 
   - Permission issues: `docker compose run --rm php chown -R $(id -u):$(id -g) .`
+  - Slow api response: If on windows, move the project to the WSL filesystem
