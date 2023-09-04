@@ -5,7 +5,8 @@ services:
   
   php:
     build:
-      target: app_php_dev
+      context: .
+      target: php_dev
     volumes:
       - ./SalineAcademyBackend:/srv/app
       - ./docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
@@ -21,12 +22,18 @@ services:
   
   node:
     build:
+      context: .
       target: app_node_dev
     volumes:
       - ./SalineAcademyFrontend:/usr/src/app
 
   caddy:
-    command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile", "--watch"]
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile", "--watch" ]
+    build:
+      context: .
+      target: caddy_base
     volumes:
       - ./SalineAcademyBackend/public:/srv/app/public:ro
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      MERCURE_EXTRA_DIRECTIVES: demo
