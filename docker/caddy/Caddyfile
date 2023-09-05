@@ -36,6 +36,14 @@ route {
         file_server
     }
 
+    @back-end-bundles path /bundles/*
+    handle @back-end-bundles {
+        root * /srv/app/public
+        php_fastcgi unix//var/run/php/php-fpm.sock
+        encode zstd gzip
+        file_server
+    }
+
     handle {
         reverse_proxy node:3000
     }
