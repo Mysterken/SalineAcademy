@@ -25,6 +25,10 @@ Get a list of all available commands from make:
 make help
 ```
 
+---
+Get all API endpoints from `https://localhost/api/docs`
+
+---
 Fix for common issues:
 
   - Permission issues: `docker compose run --rm php chown -R $(id -u):$(id -g) .`
