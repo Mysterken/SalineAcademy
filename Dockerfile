@@ -6,9 +6,11 @@ FROM mlocati/php-extension-installer:2 AS php_extension_installer_upstream
 FROM composer/composer:2-bin AS composer_upstream
 FROM caddy:2-alpine AS caddy_upstream
 
+
 # The different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
+
 
 # Base PHP image
 FROM php_upstream AS php_base
