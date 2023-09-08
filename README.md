@@ -10,7 +10,7 @@ Steps:
   - Run the following commands:
 
 ```shell
-git clone git@github.com:Mysterken/SalineAcademy.
+git clone git@github.com:Mysterken/SalineAcademy.git
 cd SalineAcademy
 cp .env.example .env
 git submodule update --init --recursive
