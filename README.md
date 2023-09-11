@@ -32,4 +32,4 @@ Get all API endpoints from `https://localhost/api/docs`
 Fix for common issues:
 
   - Permission issues: `docker compose run --rm php chown -R $(id -u):$(id -g) .`
-  - Slow api response: If on windows, move the project to the WSL filesystem
+  - Slow api response / no HMR for the frontend: If on windows, move the project to the WSL filesystem
