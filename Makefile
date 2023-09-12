@@ -40,7 +40,7 @@ down: ## Stop the docker hub
 	@$(DOCKER_COMP) down --remove-orphans
 
 prod: ## Start the docker hub in production mode
-	@$(DOCKER_COMP) -f docker-compose.yml -f docker-compose.prod.yml up --wait
+	@$(DOCKER_COMP) -f docker-compose.yml -f docker-compose.prod.yml up --detach
 
 logs: ## Show live logs
 	@$(DOCKER_COMP) logs --tail=0 --follow
