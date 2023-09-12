@@ -10,7 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with: 
+        with:
+          ssh-key: ${{ secrets.REPO_SSH_KEYS }}
           submodules: true
 
       - uses: Mysterken/github-action-ssh-docker-compose@master
