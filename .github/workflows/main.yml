@@ -21,4 +21,6 @@ jobs:
           ssh_port: 9122
           ssh_private_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           ssh_user: ${{ secrets.DEPLOY_USER }}
+          user_admin: ${{ secrets.USER_ADMIN }}
+          user_admin_password: ${{ secrets.USER_ADMIN_PASSWORD }}
           docker_compose_prefix: saline
