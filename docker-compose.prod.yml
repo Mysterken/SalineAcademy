@@ -17,7 +17,7 @@ services:
   node:
     build:
       context: .
-      target: app_node_prod
+      target: app_node_dev
     volumes:
       - ./SalineAcademyFrontend:/usr/src/app
     environment:
