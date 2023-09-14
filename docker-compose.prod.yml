@@ -20,8 +20,6 @@ services:
       target: app_node_dev
     volumes:
       - ./SalineAcademyFrontend:/usr/src/app
-    environment:
-      TEST: 123
 
   caddy:
     build:
